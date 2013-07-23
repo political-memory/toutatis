@@ -53,7 +53,7 @@ class Command(BaseCommand):
                     b += 1
                     raw_mep = vote.raw_mep.replace(u"ß", "SS").replace("`", "'").replace("*", "")
 
-                    # the EP staff doesn't write their last last name
+                    # the EP staff write or don't write their last last name
                     if raw_mep == "Vitkauskaite":
                         raw_mep = "VITKAUSKAITE BERNARD"
                     if raw_mep == "Mathieu":
@@ -68,13 +68,45 @@ class Command(BaseCommand):
                         raw_mep = "MORKŪNAITĖ-MIKULĖNIENĖ"
                     if raw_mep == u'Paksas* Rossi':
                         raw_mep = "Paksas"
+                    if raw_mep == u'Morin':
+                        raw_mep = "MORIN-CHARTIER"
+                    if raw_mep == u'Obiols i Germ\xe0':
+                        raw_mep = "OBIOLS"
+                    if raw_mep == u'Meyer Pleite':
+                        raw_mep = "MEYER"
+                    if raw_mep == u'Wojciechowski Bernard Piotr':
+                        raw_mep = "WOJCIECHOWSKI"
+                    if raw_mep == u'Hammerstein Mintz':
+                        raw_mep = "HAMMERSTEIN"
+                    if raw_mep == u'Ayuso Gonz\xe1lez':
+                        raw_mep = "AYUSO"
+                    if raw_mep == u'Galeote Quecedo':
+                        raw_mep = "GALEOTE"
+                    if raw_mep == u'Vidal-Quadras Roca':
+                        raw_mep = "VIDAL-QUADRAS"
+                    if raw_mep == u'Evans Jillian':
+                        raw_mep = "EVANS Jill"
+                    if raw_mep == u'Jordan amCizelj':
+                        raw_mep = "Jordan Romana"
+                    if raw_mep == u'Bern\xe1thn\xe9 Moh\xe1csi':
+                        raw_mep = "MOHÁCSI"
+                    if raw_mep == u'Martin David W.':
+                        raw_mep = "Martin David"
+                    if raw_mep == u'Evans Robert J.E.':
+                        raw_mep = "Evans Robert"
+                    if raw_mep == u'Romeva Rueda':
+                        raw_mep = "ROMEVA i RUEDA"
+                    if raw_mep == u'Badia Cutchet':
+                        raw_mep = "BADIA i CUTCHET"
+                    if raw_mep == u'Lambsdorff Graf':
+                        raw_mep = "Graf LAMBSDORFF"
 
                     # special unicode char
                     if raw_mep in ("Rodriguez", "Perello Rodriguez"):
                         raw_mep = u'PERELL\xd3 RODR\xcdGUEZ'
                     if raw_mep == u'Sa\u010ffi':
                         raw_mep = u'SA\xcfFI'
-                    if raw_mep in ('Grosset\xc3\xaate', u'Grosset\u0119te'):
+                    if raw_mep in ('Grosset\xc3\xaate', u'Grosset\u0119te', u'Grossetete'):
                         raw_mep = 'Grossetête'
                     if raw_mep == u'Patr\u0103o Neves':
                         raw_mep = "PATRÃO NEVES"
@@ -98,6 +130,50 @@ class Command(BaseCommand):
                         raw_mep = "JIMÉNEZ-BECERRIL BARRIO"
                     if raw_mep == u'Y\xe1\u0144ez-Barnuevo Garc\xeda':
                         raw_mep = "YÁÑEZ-BARNUEVO GARCÍA"
+                    if raw_mep == u'Zappal\xe0':
+                        raw_mep = "ZAPPALA'"
+                    if raw_mep == u'Teychenne':
+                        raw_mep = "TEYCHENNÉ"
+                    if raw_mep == u'Henin':
+                        raw_mep = "HÉNIN"
+                    if raw_mep == u'Lefrancois':
+                        raw_mep = "LEFRANÇOIS"
+                    if raw_mep == u'Verges':
+                        raw_mep = "VERGÈS"
+                    if raw_mep == u'Foure':
+                        raw_mep = "FOURÉ"
+                    if raw_mep == u'Nicule\u015fcu':
+                        raw_mep = "NICULESCU"
+                    if raw_mep == u'Ya\xf1ez-Barnuevo Garc\xeda':
+                        raw_mep = "YÁÑEZ-BARNUEVO GARCÍA"
+                    if raw_mep == u'T\xeerle':
+                        raw_mep = "ŢÎRLE"
+                    if raw_mep == u'Poettering':
+                        raw_mep = "PÖTTERING"
+                    if raw_mep == u'Bad\xeda i Cutchet':
+                        raw_mep = "BADIA i CUTCHET"
+                    if raw_mep == u'RoG\xe1lski':
+                        raw_mep = "ROGALSKI"
+                    if raw_mep == u'Garc\xeda-MarG\xe1llo y Marfil':
+                        raw_mep = "GARCÍA-MARGALLO Y MARFIL"
+                    if raw_mep == u'Ku\u0161kis':
+                        raw_mep = "KUŠĶIS"
+                    if raw_mep == u'\u0160tastn\xfd':
+                        raw_mep = "ŠŤASTNÝ"
+                    if raw_mep == u'Stroz':
+                        raw_mep = "STROŽ"
+                    if raw_mep == u'Piks':
+                        raw_mep = "PĪKS"
+                    if raw_mep == u'Pek':
+                        raw_mep = "PĘK"
+                    if raw_mep == u'Beres':
+                        raw_mep = "BERÈS"
+                    if raw_mep == u'Manka':
+                        raw_mep = "MAŇKA"
+                    if raw_mep == u'Starkevici\u016bt\u0117':
+                        raw_mep = "STARKEVIČIŪTĖ"
+                    if raw_mep == u'Barsi Pataky':
+                        raw_mep = "BARSI-PATAKY"
 
                     # has changed of last name
                     if raw_mep == "Manner":
@@ -108,6 +184,20 @@ class Command(BaseCommand):
                         raw_mep = "Auconie"
                     if raw_mep == "Mihaylova":
                         raw_mep = "NEYNSKY"
+                    if raw_mep == u'Juknevi\u010dien\u0117':
+                        raw_mep = "RAINYTÉ-BODARD"
+                    if raw_mep == u'Carlshamre':
+                        raw_mep = "ROBSAHM"
+                    if raw_mep == u'Be\u0148ov\xe1':
+                        raw_mep = "FLAŠÍKOVÁ BEŇOVÁ"
+
+                    # typo? many way to write this name?
+                    if raw_mep == u'Husmenova':
+                        raw_mep = "HYUSMENOVA"
+
+                    # parsing error?
+                    if raw_mep == u'+-Montalto':
+                        raw_mep = "ATTARD-MONTALTO"
 
                     sys.stdout.write("%s/%s %s/%s\r" % (a, total, b, total_votes))
                     sys.stdout.flush()
