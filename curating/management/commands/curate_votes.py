@@ -233,11 +233,6 @@ class Command(BaseCommand):
                             _mep.save()
                         mep = proposal_part.curatedproposalpart.meps.filter(swaped_name__iexact=raw_mep)
 
-                    if raw_mep in (u'Guerreiro', 'Rutowicz', u'Podka\u0144ski'):
-                        # FIXME I don't have those meps
-                        fails.append(raw_mep)
-                        continue
-
                     if not mep:
                         #print raw_mep
                         #mep = raw_mep
