@@ -225,9 +225,6 @@ class Command(BaseCommand):
                     group = Group.objects.get(abbreviation=group_convertion_table.get(vote.raw_group, vote.raw_group))
 
                     if not mep:
-                        #if swaped_names.get(group) is None:
-                            #swaped_names[group] = {"%s %s" % (x.last_name.lower(), x.first_name.lower()): x for x in proposal_part.curatedproposalpart.meps.all() if x.group() == group}
-                        #mep = [swaped_names[group].get(raw_mep.lower())] if swaped_names[group].get(raw_mep.lower()) else []
                         for _mep in proposal_part.curatedproposalpart.meps.filter(swaped_name__isnull=True):
                             _mep.swaped_name = "%s %s" % (_mep.last_name, _mep.first_name)
                             _mep.save()
