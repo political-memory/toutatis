@@ -202,16 +202,8 @@ class Command(BaseCommand):
                     sys.stdout.write("%s/%s %s/%s\r" % (a, total, b, total_votes))
                     sys.stdout.flush()
 
-                    # FIXME still missing, see with stf, most of them are dead meps :/
-                    if raw_mep in (u'Wurtz', u'Ga\u013ea', u'Graefe zu Baringdorf', 'Pannella', u'Podest\xe0', 'Booth', 'Geremek', 'Piecyk', u'Ku\u0142akowski', 'Bonde', 'Tajani', u'Szab\xf3', 'VERGÈS', u'Mastenbroek', 'Pavilionis', 'Duquesne', 'Bonino', 'Whitehead', 'Zimmerling', u'P\xe1lfi', 'Adwent'):
-                        continue
-
                     # FIXME dafuq?!
                     if raw_mep == "..":
-                        continue
-
-                    # FIXME yet another dead mep
-                    if raw_mep == "Correia" and not proposal_part.curatedproposalpart.meps.filter(full_name__icontains=raw_mep):
                         continue
 
                     #if proposal_part.id in (3508, 3507, 3506, 3505, 3503, 3502, 3501, 3500, 3499, 3498, 3498, 3497, 3496, 3495, 3494) and raw_mep == 'Occhetto':
