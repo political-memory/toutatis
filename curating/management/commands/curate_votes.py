@@ -40,7 +40,7 @@ class Command(BaseCommand):
                 b = 0
                 fails = []
 
-                if proposal_part.curatedproposalpart is None:
+                if not CuratedProposalPart.objects.filter(proposal_part=proposal_part):
                     proposal_part.curatedproposalpart = CuratedProposalPart(proposal_part=proposal_part)
                     proposal_part.curatedproposalpart.save()
                     for chunck in grouper(set([x.mep for x in CountryMEP.objects.filter(begin__lte=proposal_part.datetime.date(), end__gte=proposal_part.datetime.date() - timedelta(days=1))]), 100):
