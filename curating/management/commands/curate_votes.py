@@ -223,6 +223,9 @@ class Command(BaseCommand):
                         mep = proposal_part.curatedproposalpart.meps.filter(swaped_name__iexact=raw_mep)
 
                     if not mep:
+                        mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep.upper())
+
+                    if not mep:
                         #print raw_mep
                         #mep = raw_mep
                         #meppp = proposal_part.curatedproposalpart.meps.filter(full_name__icontains=raw_mep)
