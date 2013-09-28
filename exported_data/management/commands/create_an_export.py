@@ -1,7 +1,5 @@
 import json
-import hashlib
 
-from datetime import datetime
 
 from django.core.management.base import BaseCommand
 
@@ -14,16 +12,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         data = json.dumps(export_all_votes(), indent=4, cls=CustomJSONEncoder)
-        checksum = hashlib.sha256(data).hexdigest()
-        exported_revision = ExportedRevision.objects.filter(checksum=checksum)
-        if exported_revision:
-            exported_revision = exported_revision[0]
-            exported_revision.last_check_datetime = datetime.now()
-            exported_revision.save()
-        else:
-            ExportedRevision.objects.create(
-                data=data,
-                checksum=hashlib.sha256(data).hexdigest(),
-                creation_datetime=datetime.now(),
-                last_check_datetime=datetime.now()
-            )
+        ExportedRevision.create_revision_with_data(data)
