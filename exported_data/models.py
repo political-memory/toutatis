@@ -9,3 +9,4 @@ class ExportedRevision(models.Model):
 
     class Meta:
         ordering = ['-last_check_datetime']
+        get_latest_by = 'last_check_datetime'
