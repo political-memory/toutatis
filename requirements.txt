@@ -2,3 +2,4 @@ django
 django-extensions
 pytz
 django-tastypie
+python-mimeparse
