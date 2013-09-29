@@ -106,8 +106,8 @@ class Command(BaseCommand):
                         raw_mep = u'PERELL\xd3 RODR\xcdGUEZ'
                     if raw_mep == u'Sa\u010ffi':
                         raw_mep = u'SA\xcfFI'
-                    if raw_mep in ('Grosset\xc3\xaate', u'Grosset\u0119te', u'Grossetete'):
-                        raw_mep = 'Grossetête'
+                    if raw_mep in ('Grosset\xc3\xaate', u'Grosset\u0119te', u'Grossetete', 'Grosset\xc3\xaate'):
+                        raw_mep = u'GROSSET\xcaTE'
                     if raw_mep == u'Patr\u0103o Neves':
                         raw_mep = "PATRÃO NEVES"
                     if raw_mep == u'Gauz\u010ds':
