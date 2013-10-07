@@ -223,6 +223,8 @@ class Command(BaseCommand):
                             _mep.swaped_name = "%s %s" % (_mep.last_name, _mep.first_name)
                             _mep.save()
                         mep = proposal_part.curatedproposalpart.meps.filter(swaped_name__iexact=raw_mep)
+                        if not mep:
+                            mep = proposal_part.curatedproposalpart.meps.filter(swaped_name__iexact=raw_mep.upper())
 
                     if not mep:
                         mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep.upper())
