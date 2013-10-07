@@ -2,4 +2,4 @@ django
 django-extensions
 pytz
 django-tastypie
-ijson
+ijson==1.0
