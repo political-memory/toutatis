@@ -241,6 +241,9 @@ class Command(BaseCommand):
                         mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep.upper())
 
                     if not mep:
+                        if raw_mep in ("Hellvig", "Silaghi"):
+                            fails.append(raw_mep)
+                            continue
                         #print raw_mep
                         #mep = raw_mep
                         #meppp = proposal_part.curatedproposalpart.meps.filter(full_name__icontains=raw_mep)
