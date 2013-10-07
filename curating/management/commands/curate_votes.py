@@ -33,7 +33,7 @@ class Command(BaseCommand):
         total = ProposalPart.objects.count()
         #total = ProposalPart.objects.filter(datetime__gte=date(2013, 7, 1)).select_related('curatedproposalpart').count()
         #for proposal_part in ProposalPart.objects.filter(datetime__gte=date(2013, 7, 1)).select_related('curatedproposalpart'):
-        for proposal_part in ProposalPart.objects.all().order_by('-datetime').select_related('curatedproposalpart'):
+        for proposal_part in ProposalPart.objects.all().order_by('-datetime').select_related('curatedproposalpart', 'proposal'):
             with transaction.commit_on_success():
                 a += 1
                 b = 0
@@ -280,7 +280,7 @@ class Command(BaseCommand):
                     vote.save()
 
                 if proposal_part.vote_set.count():
-                    print "%s/%s %s%% %s %s          " % (a, total, int(proposal_part.vote_set.filter(mep__isnull=False).count() / float(proposal_part.vote_set.count()) * 100), proposal_part, proposal_part.datetime)
+                    print "%s/%s %s%% %s %s (%s)         " % (a, total, int(proposal_part.vote_set.filter(mep__isnull=False).count() / float(proposal_part.vote_set.count()) * 100), proposal_part, proposal_part.datetime, proposal_part.proposal.title.encode("Utf-8") if proposal_part.proposal.title else "")
                 else:
                     print "WAAAAAT, no votes on this proposal!", proposal_part
 
