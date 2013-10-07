@@ -273,16 +273,6 @@ class Command(BaseCommand):
                         fails.append(raw_mep)
                         continue
 
-                    #print [x.abbreviation for x in Group.objects.all()]
-                    #print vote.raw_group
-                    if len(mep) != 1:
-                        mep = filter(lambda x: x.group() == group, mep)
-                        #assert mep
-
-                    #assert len(mep) == 1
-                    if len(mep) != 1:
-                        fails.append(raw_mep)
-                        continue
                     vote.mep = mep[0]
                     vote.save()
 
