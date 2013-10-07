@@ -221,6 +221,7 @@ class Command(BaseCommand):
                     #if proposal_part.id in (3508, 3507, 3506, 3505, 3503, 3502, 3501, 3500, 3499, 3498, 3498, 3497, 3496, 3495, 3494) and raw_mep == 'Occhetto':
                     if raw_mep in ('Occhetto', 'De Poli') and not proposal_part.curatedproposalpart.meps.filter(full_name__icontains=raw_mep):
                         # FIXME DAFUQ those dude actually voted while not being elected!
+                        fails.append(raw_mep)
                         continue
 
                     mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep)
