@@ -39,6 +39,9 @@ class Command(BaseCommand):
                 b = 0
                 fails = []
 
+                if proposal_part.vote_set.filter(mep__isnull=False).count() == proposal_part.vote_set.count():
+                    continue
+
                 if not CuratedProposalPart.objects.filter(proposal_part=proposal_part):
                     proposal_part.curatedproposalpart = CuratedProposalPart(proposal_part=proposal_part)
                     proposal_part.curatedproposalpart.save()
