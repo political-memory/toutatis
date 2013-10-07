@@ -240,6 +240,9 @@ class Command(BaseCommand):
                     if not mep:
                         mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep.upper())
 
+                    if len(mep) != 1:
+                        mep = filter(lambda x: x.groupmep_set.at_date(proposal_part.datetime)[0].group if x.groupmep_set.at_date(proposal_part.datetime) else None == group, mep)
+
                     if raw_mep in ('Le Pen', 'Winkler') and len(mep) != 1:
                         # FIXME I can't solve those one!
                         fails.append(raw_mep.encode("Utf-8"))
