@@ -253,6 +253,7 @@ class Command(BaseCommand):
                             fails.append(raw_mep)
                             continue
                         #print raw_mep
+                        #query_result = mep
                         #mep = raw_mep
                         #meppp = proposal_part.curatedproposalpart.meps.filter(full_name__icontains=raw_mep)
                         #mepdb = MEP.objects.filter(full_name__icontains=mep)
