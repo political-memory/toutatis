@@ -240,6 +240,11 @@ class Command(BaseCommand):
                     if not mep:
                         mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep.upper())
 
+                    if raw_mep in ('Le Pen', 'Winkler') and len(mep) != 1:
+                        # FIXME I can't solve those one!
+                        fails.append(raw_mep.encode("Utf-8"))
+                        continue
+
                     if not mep:
                         if raw_mep in ("Hellvig", "Silaghi"):
                             fails.append(raw_mep)
@@ -263,11 +268,6 @@ class Command(BaseCommand):
                         #from IPython import embed; embed()
                         #sys.exit(0)
                         fails.append(raw_mep)
-                        continue
-
-                    if raw_mep in ('Le Pen', 'Winkler') and len(mep) != 1:
-                        # FIXME I can't solve those one!
-                        fails.append(raw_mep.encode("Utf-8"))
                         continue
 
                     #print [x.abbreviation for x in Group.objects.all()]
