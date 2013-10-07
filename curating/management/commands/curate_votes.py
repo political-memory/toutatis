@@ -201,6 +201,11 @@ class Command(BaseCommand):
                     if raw_mep == u'+-Montalto':
                         raw_mep = "ATTARD-MONTALTO"
 
+                    # XXX this probably won't work on a long time
+                    # inconsistance of displaying of last name
+                    if raw_mep == 'Lambsdorff':
+                        raw_mep = 'Graf LAMBSDORFF'
+
                     # FIXME: need to be split
                     if raw_mep == 'Paksas Rossi':
                         fails.append(raw_mep)
