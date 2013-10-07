@@ -201,6 +201,11 @@ class Command(BaseCommand):
                     if raw_mep == u'+-Montalto':
                         raw_mep = "ATTARD-MONTALTO"
 
+                    # FIXME: need to be split
+                    if raw_mep == 'Paksas Rossi':
+                        fails.append(raw_mep)
+                        continue
+
                     sys.stdout.write("%s/%s %s/%s\r" % (a, total, b, total_votes))
                     sys.stdout.flush()
 
