@@ -35,7 +35,6 @@ class Command(BaseCommand):
         #for proposal_part in ProposalPart.objects.filter(datetime__gte=date(2013, 7, 1)).select_related('curatedproposalpart'):
         for proposal_part in ProposalPart.objects.all().order_by('-datetime').select_related('curatedproposalpart'):
             with transaction.commit_on_success():
-                #swaped_names = {}
                 a += 1
                 b = 0
                 fails = []
