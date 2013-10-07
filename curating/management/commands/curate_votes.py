@@ -265,7 +265,7 @@ class Command(BaseCommand):
                         fails.append(raw_mep)
                         continue
 
-                    if raw_mep in ('Le Pen', 'Winkler'):
+                    if raw_mep in ('Le Pen', 'Winkler') and len(mep) != 1:
                         # FIXME I can't solve those one!
                         fails.append(raw_mep)
                         continue
