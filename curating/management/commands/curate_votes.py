@@ -245,7 +245,7 @@ class Command(BaseCommand):
                         fails.append(raw_mep.encode("Utf-8"))
                         continue
 
-                    if not mep:
+                    if not mep or len(mep) != 1:
                         if raw_mep in ("Hellvig", "Silaghi"):
                             fails.append(raw_mep)
                             continue
