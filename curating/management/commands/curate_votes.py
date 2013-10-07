@@ -267,7 +267,7 @@ class Command(BaseCommand):
 
                     if raw_mep in ('Le Pen', 'Winkler') and len(mep) != 1:
                         # FIXME I can't solve those one!
-                        fails.append(raw_mep)
+                        fails.append(raw_mep.encode("Utf-8"))
                         continue
 
                     #print [x.abbreviation for x in Group.objects.all()]
