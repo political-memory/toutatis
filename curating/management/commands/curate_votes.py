@@ -33,14 +33,16 @@ class Command(BaseCommand):
         total = ProposalPart.objects.count()
         #total = ProposalPart.objects.filter(datetime__gte=date(2013, 7, 1)).select_related('curatedproposalpart').count()
         #for proposal_part in ProposalPart.objects.filter(datetime__gte=date(2013, 7, 1)).select_related('curatedproposalpart'):
-        for proposal_part in ProposalPart.objects.all().order_by('-datetime').select_related('curatedproposalpart'):
+        for proposal_part in ProposalPart.objects.all().order_by('-datetime').select_related('curatedproposalpart', 'proposal'):
             with transaction.commit_on_success():
-                #swaped_names = {}
                 a += 1
                 b = 0
                 fails = []
 
-                if proposal_part.curatedproposalpart is None:
+                if proposal_part.vote_set.filter(mep__isnull=False).count() == proposal_part.vote_set.count():
+                    continue
+
+                if not CuratedProposalPart.objects.filter(proposal_part=proposal_part):
                     proposal_part.curatedproposalpart = CuratedProposalPart(proposal_part=proposal_part)
                     proposal_part.curatedproposalpart.save()
                     for chunck in grouper(set([x.mep for x in CountryMEP.objects.filter(begin__lte=proposal_part.datetime.date(), end__gte=proposal_part.datetime.date() - timedelta(days=1))]), 100):
@@ -106,8 +108,8 @@ class Command(BaseCommand):
                         raw_mep = u'PERELL\xd3 RODR\xcdGUEZ'
                     if raw_mep == u'Sa\u010ffi':
                         raw_mep = u'SA\xcfFI'
-                    if raw_mep in ('Grosset\xc3\xaate', u'Grosset\u0119te', u'Grossetete'):
-                        raw_mep = 'Grossetête'
+                    if raw_mep in ('Grosset\xc3\xaate', u'Grosset\u0119te', u'Grossetete', 'Grosset\xc3\xaate'):
+                        raw_mep = u'GROSSET\xcaTE'
                     if raw_mep == u'Patr\u0103o Neves':
                         raw_mep = "PATRÃO NEVES"
                     if raw_mep == u'Gauz\u010ds':
@@ -199,24 +201,27 @@ class Command(BaseCommand):
                     if raw_mep == u'+-Montalto':
                         raw_mep = "ATTARD-MONTALTO"
 
+                    # XXX this probably won't work on a long time
+                    # inconsistance of displaying of last name
+                    if raw_mep == 'Lambsdorff':
+                        raw_mep = 'Graf LAMBSDORFF'
+
+                    # FIXME: need to be split
+                    if raw_mep == 'Paksas Rossi':
+                        fails.append(raw_mep)
+                        continue
+
                     sys.stdout.write("%s/%s %s/%s\r" % (a, total, b, total_votes))
                     sys.stdout.flush()
-
-                    # FIXME still missing, see with stf, most of them are dead meps :/
-                    if raw_mep in (u'Wurtz', u'Ga\u013ea', u'Graefe zu Baringdorf', 'Pannella', u'Podest\xe0', 'Booth', 'Geremek', 'Piecyk', u'Ku\u0142akowski', 'Bonde', 'Tajani', u'Szab\xf3', 'VERGÈS', u'Mastenbroek', 'Pavilionis', 'Duquesne', 'Bonino', 'Whitehead', 'Zimmerling', u'P\xe1lfi', 'Adwent'):
-                        continue
 
                     # FIXME dafuq?!
                     if raw_mep == "..":
                         continue
 
-                    # FIXME yet another dead mep
-                    if raw_mep == "Correia" and not proposal_part.curatedproposalpart.meps.filter(full_name__icontains=raw_mep):
-                        continue
-
                     #if proposal_part.id in (3508, 3507, 3506, 3505, 3503, 3502, 3501, 3500, 3499, 3498, 3498, 3497, 3496, 3495, 3494) and raw_mep == 'Occhetto':
                     if raw_mep in ('Occhetto', 'De Poli') and not proposal_part.curatedproposalpart.meps.filter(full_name__icontains=raw_mep):
                         # FIXME DAFUQ those dude actually voted while not being elected!
+                        fails.append(raw_mep)
                         continue
 
                     mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep)
@@ -225,16 +230,30 @@ class Command(BaseCommand):
                     group = Group.objects.get(abbreviation=group_convertion_table.get(vote.raw_group, vote.raw_group))
 
                     if not mep:
-                        #if swaped_names.get(group) is None:
-                            #swaped_names[group] = {"%s %s" % (x.last_name.lower(), x.first_name.lower()): x for x in proposal_part.curatedproposalpart.meps.all() if x.group() == group}
-                        #mep = [swaped_names[group].get(raw_mep.lower())] if swaped_names[group].get(raw_mep.lower()) else []
                         for _mep in proposal_part.curatedproposalpart.meps.filter(swaped_name__isnull=True):
                             _mep.swaped_name = "%s %s" % (_mep.last_name, _mep.first_name)
                             _mep.save()
                         mep = proposal_part.curatedproposalpart.meps.filter(swaped_name__iexact=raw_mep)
+                        if not mep:
+                            mep = proposal_part.curatedproposalpart.meps.filter(swaped_name__iexact=raw_mep.upper())
 
                     if not mep:
+                        mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep.upper())
+
+                    if len(mep) != 1:
+                        mep = filter(lambda x: x.groupmep_set.at_date(proposal_part.datetime)[0].group if x.groupmep_set.at_date(proposal_part.datetime) else None == group, mep)
+
+                    if raw_mep in ('Le Pen', 'Winkler') and len(mep) != 1:
+                        # FIXME I can't solve those one!
+                        fails.append(raw_mep.encode("Utf-8"))
+                        continue
+
+                    if not mep or len(mep) != 1:
+                        if raw_mep in ("Hellvig", "Silaghi"):
+                            fails.append(raw_mep)
+                            continue
                         #print raw_mep
+                        #query_result = mep
                         #mep = raw_mep
                         #meppp = proposal_part.curatedproposalpart.meps.filter(full_name__icontains=raw_mep)
                         #mepdb = MEP.objects.filter(full_name__icontains=mep)
@@ -255,26 +274,11 @@ class Command(BaseCommand):
                         fails.append(raw_mep)
                         continue
 
-                    if raw_mep in ('Le Pen', 'Winkler'):
-                        # FIXME I can't solve those one!
-                        fails.append(raw_mep)
-                        continue
-
-                    #print [x.abbreviation for x in Group.objects.all()]
-                    #print vote.raw_group
-                    if len(mep) != 1:
-                        mep = filter(lambda x: x.group() == group, mep)
-                        #assert mep
-
-                    #assert len(mep) == 1
-                    if len(mep) != 1:
-                        fails.append(raw_mep)
-                        continue
                     vote.mep = mep[0]
                     vote.save()
 
                 if proposal_part.vote_set.count():
-                    print "%s/%s %s%% %s %s          " % (a, total, int(proposal_part.vote_set.filter(mep__isnull=False).count() / float(proposal_part.vote_set.count()) * 100), proposal_part, proposal_part.datetime)
+                    print "%s/%s %s%% %s %s (%s)         " % (a, total, int(proposal_part.vote_set.filter(mep__isnull=False).count() / float(proposal_part.vote_set.count()) * 100), proposal_part, proposal_part.datetime, proposal_part.proposal.title.encode("Utf-8") if proposal_part.proposal.title else "")
                 else:
                     print "WAAAAAT, no votes on this proposal!", proposal_part
 

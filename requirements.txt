@@ -3,3 +3,4 @@ django-extensions
 pytz
 django-tastypie
 python-mimeparse
+ijson==1.0
