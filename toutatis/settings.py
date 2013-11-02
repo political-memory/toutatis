@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'parltrack_meps',
     'django_extensions',
     'curating',
+    'exported_data',
 )
 
 # A sample logging configuration. The only tangible logging
