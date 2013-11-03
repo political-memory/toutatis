@@ -3,4 +3,4 @@ django-extensions
 pytz
 django-tastypie
 python-mimeparse
-ijson==1.0
+git+https://github.com/Psycojoker/ijson.git#egg=isjon
