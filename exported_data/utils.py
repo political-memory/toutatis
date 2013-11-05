@@ -4,9 +4,11 @@ from datetime import datetime, date
 import time
 
 from parltrack_votes.models import Proposal
+from django.db import transaction
 
 
-def export_proposal(proposal):
+def export_proposal(i, proposal):
+    print i
     return {
         'code_name': proposal.code_name,
         'title': proposal.title,
@@ -32,7 +34,8 @@ def export_vote(vote):
 
 
 def export_all_votes():
-    return [export_proposal(proposal) for proposal in Proposal.objects.all()]
+    with transaction.commit_on_success():
+        return [export_proposal(i, proposal) for i, proposal in enumerate(Proposal.objects.all(),)]
 
 
 class CustomJSONEncoder(DjangoJSONEncoder):
