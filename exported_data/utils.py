@@ -22,7 +22,9 @@ def export_part(part):
         'datetime': part.datetime,
         'subject': part.subject,
         'part': part.part,
-        'votes': [export_vote(vote) for vote in part.vote_set.all()]
+        'votes_for': [vote.mep_id for vote in part.vote_set.filter(choice='for')],
+        'votes_against': [vote.mep_id for vote in part.vote_set.filter(choice='against')],
+        'votes_abstension': [vote.mep_id for vote in part.vote_set.filter(choice='abstension')],
     }
 
 
