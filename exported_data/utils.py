@@ -47,5 +47,5 @@ class CustomJSONEncoder(DjangoJSONEncoder):
         if isinstance(obj, datetime):
             return time.mktime(obj.timetuple()) * 1000
         if isinstance(obj, date):
-            return str(date)
+            return str(obj)
         return super(CustomJSONEncoder, self).default(obj)
