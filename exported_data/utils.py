@@ -22,9 +22,9 @@ def export_part(part):
         'datetime': part.datetime,
         'subject': part.subject,
         'part': part.part,
-        'votes_for': [vote.mep.ep_id for vote in part.vote_set.filter(choice='for', mep__isnull=False)],
-        'votes_against': [vote.mep.ep_id for vote in part.vote_set.filter(choice='against', mep__isnull=False)],
-        'votes_abstension': [vote.mep.ep_id for vote in part.vote_set.filter(choice='abstension', mep__isnull=False)],
+        'votes_for': [vote.mep.ep_id for vote in part.vote_set.filter(choice='for', mep__isnull=False).select_related('mep')],
+        'votes_against': [vote.mep.ep_id for vote in part.vote_set.filter(choice='against', mep__isnull=False).select_related('mep')],
+        'votes_abstension': [vote.mep.ep_id for vote in part.vote_set.filter(choice='abstension', mep__isnull=False).select_related('mep')],
     }
 
 
