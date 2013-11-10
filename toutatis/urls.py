@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.views.generic import TemplateView
 
 from tastypie.api import Api
 from api.api import ProposalRessource, ProposalPartRessource, VoteRessource, MEPRessource
@@ -12,6 +13,7 @@ v1_api.register(MEPRessource())
 v1_api.register(ExportedRevisionResource())
 
 urlpatterns = patterns('',
+    url(r'^$', TemplateView.as_view(template_name="home.html")),
     url(r'^api/', include(v1_api.urls)),
     url(r'^', include('exported_data.urls')),
 )

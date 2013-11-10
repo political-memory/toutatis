@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'curating',
     'exported_data',
+    'toutatis',
 )
 
 # A sample logging configuration. The only tangible logging

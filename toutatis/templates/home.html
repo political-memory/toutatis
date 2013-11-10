@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>Toutatis - Home</title>
+    </head>
+    <body>
+        <h1 id="toutatis">Toutatis</h1>
+        <p>Hello, Toutatis is a simple webapp that do the matching between the Members of the European Parliament and the voting result in the data taken from <a href="https://parltrack.euwiki.org">parltrack</a>.</p>
+
+
+        <h2>Data</h2>
+        <ul>
+            <li><a href="/latest/">Latest json dump of votes</a> <b>Warning:</b> DON'T open this in your browser, it's about 200mo.</li>
+            <li><a href="/latest/checksum/">Checksum of the data</a></li>
+        </ul>
+
+        <h2>API</h2>
+
+        <p>If you want more fingrain access to the dumps and their meta data, you can access all of the via a <a href="http://django-tastypie.readthedocs.org/en/latest/">tastypie</a> API.</p>
+
+        <p><b>Warning:</b> those data is quite big so expect some slowdown if you try to open them in your browser.</p>
+
+        <p>The API is accessible at this url: <code>http://{{ request.META.SERVER_NAME }}/api/exported_revision/?format=json</code></p>
+
+        <p>Sample usage: <code>curl http://{{ request.META.SERVER_NAME }}/api/exported_revision/?format=json | python -m json.tool</code></p>
+
+        <hr/>
+
+        <p>Toutatis is free software under the aGPLv3+. <a href="https://github.com/political_memory/toutatis">Source code</a></p>
+    </body>
+</html>
