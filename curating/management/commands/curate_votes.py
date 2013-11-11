@@ -245,11 +245,14 @@ class Command(BaseCommand):
                         if raw_mep == u'Weber' and raw_similar_meps == [u'Weber', u'Weber Renate', u'Weber Henri']:
                             mep = MEP.objects.filter(ep_id=28229)
 
-                        if raw_mep == u'Ferreira' and raw_similar_meps == [u'Ferreira', u'Ferreira Elisa']:
+                        elif raw_mep == u'Ferreira' and raw_similar_meps == [u'Ferreira', u'Ferreira Elisa']:
                             mep = MEP.objects.filter(ep_id=96706)
 
-                        if raw_mep == "Martin" and raw_similar_meps == [u'De Martini', u'Martin Hans-Peter', u'Martin']:
-                            mep = MEP.objects.filter(ep_id=1403)
+                        elif raw_mep == "Martin" and raw_similar_meps == [u'De Martini', u'Martin Hans-Peter', u'Martin']:
+                            mep = MEP.objects.filter(ep_id=1403)  # david martin
+
+                        elif raw_mep == "Martin" and proposal_part.proposal.code_name == u'A7-0293/2013':
+                            mep = MEP.objects.filter(ep_id=1403)  # david martin
 
 
                     if len(mep) != 1:
