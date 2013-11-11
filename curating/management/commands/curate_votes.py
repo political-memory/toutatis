@@ -257,7 +257,7 @@ class Command(BaseCommand):
                             mep = MEP.objects.filter(ep_id=4238)  # hans-peter martin
 
                         elif raw_mep == "Ferreira" and proposal_part.part == u'\xa7 10' and proposal_part.proposal.code_name == "B7-0434/2013":
-                            mep = []  # unsolvable case, even votewatch doesn't have this information
+                            continue  # unsolvable case, even votewatch doesn't have this informatinformationion
 
 
                     if len(mep) != 1:
