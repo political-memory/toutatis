@@ -241,12 +241,15 @@ class Command(BaseCommand):
                         mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep.upper())
 
                     if len(mep) != 1:
-                        if raw_mep.lower() == "martin" and proposal_part.curatedproposalpart.meps.filter(last_name__iexact="martin", first_name__iexact="hans-peter").exists():
+                        raw_similar_meps = [x.raw_mep for x in proposal_part.vote_set.filter(raw_mep__icontains=raw_mep)]
+                        if raw_mep.lower() == "martin" and proposal_part.curatedproposalpart.meps.filter(last_name__iexact=raw_mep, first_name__iexact="hans-peter").exists():
                             mep = proposal_part.curatedproposalpart.meps.filter(last_name__iexact="martin", first_name__iexact="hans-peter")
 
-                        if raw_mep == u'Weber' and [x.raw_mep for x in proposal_part.vote_set.filter(raw_mep__icontains="weber")] == [u'Weber', u'Weber Renate', u'Weber Henri']:
+                        if raw_mep == u'Weber' and raw_similar_meps == [u'Weber', u'Weber Renate', u'Weber Henri']:
                             mep = MEP.objects.filter(ep_id=28229)
 
+                        if raw_mep == u'Ferreira' and raw_similar_meps == [u'Ferreira', u'Ferreira Elisa']:
+                            mep = MEP.objects.filter(ep_id=96706)
 
 
                     if len(mep) != 1:
