@@ -77,7 +77,7 @@ class Command(BaseCommand):
                     if raw_mep == u'Meyer Pleite':
                         raw_mep = "MEYER"
                     if raw_mep == u'Wojciechowski Bernard Piotr':
-                        raw_mep = "WOJCIECHOWSKI"
+                        raw_mep = "WOJCIECHOWSKI Bernard"
                     if raw_mep == u'Hammerstein Mintz':
                         raw_mep = "HAMMERSTEIN"
                     if raw_mep == u'Ayuso Gonz\xe1lez':
