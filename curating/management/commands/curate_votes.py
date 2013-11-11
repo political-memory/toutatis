@@ -253,6 +253,8 @@ class Command(BaseCommand):
 
                         elif raw_mep == "Martin" and proposal_part.proposal.code_name == u'A7-0293/2013':
                             mep = MEP.objects.filter(ep_id=1403)  # david martin
+                        elif raw_mep == "Martin" and proposal_part.proposal.code_name == u'B7-0446/2013':
+                            mep = MEP.objects.filter(ep_id=4238)  # hans-peter martin
 
 
                     if len(mep) != 1:
