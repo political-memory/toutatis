@@ -240,11 +240,14 @@ class Command(BaseCommand):
                     if not mep:
                         mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep.upper())
 
-                    if len(mep) != 1 and raw_mep.lower() == "martin" and proposal_part.curatedproposalpart.meps.filter(last_name__iexact="martin", first_name__iexact="hans-peter").exists():
-                        mep = proposal_part.curatedproposalpart.meps.filter(last_name__iexact="martin", first_name__iexact="hans-peter")
+                    if len(mep) != 1:
+                        if raw_mep.lower() == "martin" and proposal_part.curatedproposalpart.meps.filter(last_name__iexact="martin", first_name__iexact="hans-peter").exists():
+                            mep = proposal_part.curatedproposalpart.meps.filter(last_name__iexact="martin", first_name__iexact="hans-peter")
 
-                    if len(mep) != 1 and raw_mep == u'Weber' and [x.raw_mep for x in proposal_part.vote_set.filter(raw_mep__icontains="weber")] == [u'Weber', u'Weber Renate', u'Weber Henri']:
-                        mep = MEP.objects.filter(ep_id=28229)
+                        if raw_mep == u'Weber' and [x.raw_mep for x in proposal_part.vote_set.filter(raw_mep__icontains="weber")] == [u'Weber', u'Weber Renate', u'Weber Henri']:
+                            mep = MEP.objects.filter(ep_id=28229)
+
+
 
                     if len(mep) != 1:
                         mep = filter(lambda x: x.groupmep_set.at_date(proposal_part.datetime)[0].group if x.groupmep_set.at_date(proposal_part.datetime) else None == group, mep)
