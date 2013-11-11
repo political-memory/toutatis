@@ -279,10 +279,10 @@ class Command(BaseCommand):
                                 mep = proposal_part.curatedproposalpart.meps.filter(ep_id=96764)  # Hermann WINKLER
 
                         elif raw_mep == u'Le Pen':
-                            if raw_similar_meps == [u'Le Pen', u'Le Pen Marine']:
+                            if sorted(raw_similar_meps) == sorted([u'Le Pen', u'Le Pen Marine']):
                                 mep = proposal_part.curatedproposalpart.meps.filter(ep_id=1023)  # Jean-Marie LE PEN
 
-                            elif raw_similar_meps == [u'Le Pen', u'Le Pen Jean-Marie']:
+                            elif sorted(raw_similar_meps) == sorted([u'Le Pen', u'Le Pen Jean-Marie']):
                                 mep = proposal_part.curatedproposalpart.meps.filter(ep_id=28210)  # Marine LE PEN
 
                             elif proposal_part.proposal.code_name in ("B7-0081/2013", "A7-0049/2013"):
