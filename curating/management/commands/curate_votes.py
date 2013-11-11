@@ -248,6 +248,9 @@ class Command(BaseCommand):
                         if raw_mep == u'Ferreira' and raw_similar_meps == [u'Ferreira', u'Ferreira Elisa']:
                             mep = MEP.objects.filter(ep_id=96706)
 
+                        if raw_mep == "Martin" and raw_similar_meps == [u'De Martini', u'Martin Hans-Peter', u'Martin']:
+                            mep = MEP.objects.filter(ep_id=1403)
+
 
                     if len(mep) != 1:
                         mep = filter(lambda x: x.groupmep_set.at_date(proposal_part.datetime)[0].group if x.groupmep_set.at_date(proposal_part.datetime) else None == group, mep)
