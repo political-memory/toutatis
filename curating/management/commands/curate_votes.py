@@ -255,7 +255,7 @@ class Command(BaseCommand):
 
                             elif proposal_part.proposal.code_name == u'A7-0293/2013':
                                 mep = proposal_part.curatedproposalpart.meps.filter(ep_id=1403)  # david martin
-                            elif proposal_part.proposal.code_name in (u'B7-0449/2013', u'B7-0446/2013'):
+                            elif proposal_part.proposal.code_name in (u'B7-0449/2013', u'B7-0446/2013', 'B7-0410/2013'):
                                 mep = proposal_part.curatedproposalpart.meps.filter(ep_id=4238)  # hans-peter martin
 
                         elif raw_mep == "Ferreira" and sorted(raw_similar_meps) == sorted([u'Ferreira Elisa', u'Ferreira']):
