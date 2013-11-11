@@ -243,18 +243,18 @@ class Command(BaseCommand):
                     if len(mep) != 1:
                         raw_similar_meps = [x.raw_mep for x in proposal_part.vote_set.filter(raw_mep__icontains=raw_mep)]
                         if raw_mep == u'Weber' and raw_similar_meps == [u'Weber', u'Weber Renate', u'Weber Henri']:
-                            mep = MEP.objects.filter(ep_id=28229)
+                            mep = proposal_part.curatedproposalpart.meps.filter(ep_id=28229)
 
                         elif raw_mep == u'Ferreira' and raw_similar_meps == [u'Ferreira', u'Ferreira Elisa']:
-                            mep = MEP.objects.filter(ep_id=96706)
+                            mep = proposal_part.curatedproposalpart.meps.filter(ep_id=96706)
 
                         elif raw_mep == "Martin" and raw_similar_meps == [u'De Martini', u'Martin Hans-Peter', u'Martin']:
-                            mep = MEP.objects.filter(ep_id=1403)  # david martin
+                            mep = proposal_part.curatedproposalpart.meps.filter(ep_id=1403)  # david martin
 
                         elif raw_mep == "Martin" and proposal_part.proposal.code_name == u'A7-0293/2013':
-                            mep = MEP.objects.filter(ep_id=1403)  # david martin
+                            mep = proposal_part.curatedproposalpart.meps.filter(ep_id=1403)  # david martin
                         elif raw_mep == "Martin" and proposal_part.proposal.code_name in (u'B7-0449/2013', u'B7-0446/2013'):
-                            mep = MEP.objects.filter(ep_id=4238)  # hans-peter martin
+                            mep = proposal_part.curatedproposalpart.meps.filter(ep_id=4238)  # hans-peter martin
 
                         elif raw_mep == "Ferreira" and proposal_part.part == u'\xa7 10' and proposal_part.proposal.code_name == "B7-0434/2013":
                             continue  # unsolvable case, even votewatch doesn't have this informatinformationion
