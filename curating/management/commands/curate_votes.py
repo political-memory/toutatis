@@ -256,8 +256,15 @@ class Command(BaseCommand):
                         elif raw_mep == "Martin" and proposal_part.proposal.code_name in (u'B7-0449/2013', u'B7-0446/2013'):
                             mep = proposal_part.curatedproposalpart.meps.filter(ep_id=4238)  # hans-peter martin
 
-                        elif raw_mep == "Ferreira" and proposal_part.part == u'\xa7 10' and proposal_part.proposal.code_name == "B7-0434/2013":
-                            continue  # unsolvable case, even votewatch doesn't have this informatinformationion
+                        elif raw_mep == "Ferreira":
+                            if proposal_part.part == u'\xa7 10' and proposal_part.proposal.code_name == "B7-0434/2013":
+                                continue  # unsolvable case, even votewatch doesn't have this informatinformationion
+
+                            elif raw_similar_meps == [u'Ferreira Elisa', u'Ferreira']:
+                                mep = proposal_part.curatedproposalpart.meps.filter(ep_id=96706)  # João FERREIRA
+
+                        elif raw_mep == "Taylor" and raw_similar_meps == [u'Taylor Rebecca', u'Taylor']:
+                            mep = proposal_part.curatedproposalpart.meps.filter(ep_id=102931)
 
 
                     if len(mep) != 1:
