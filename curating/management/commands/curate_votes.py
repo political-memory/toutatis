@@ -264,6 +264,9 @@ class Command(BaseCommand):
                         elif raw_mep == "Taylor" and raw_similar_meps == [u'Taylor Rebecca', u'Taylor']:
                             mep = proposal_part.curatedproposalpart.meps.filter(ep_id=102931)
 
+                        elif raw_mep == "dos Santos" and raw_similar_meps == [u'dos Santos']:
+                            mep = proposal_part.curatedproposalpart.meps.filter(ep_id=21918)
+
 
                     if len(mep) != 1:
                         mep = filter(lambda x: x.groupmep_set.at_date(proposal_part.datetime)[0].group if x.groupmep_set.at_date(proposal_part.datetime) else None == group, mep)
