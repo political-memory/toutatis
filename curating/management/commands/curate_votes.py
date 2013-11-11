@@ -241,6 +241,9 @@ class Command(BaseCommand):
                         mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep.upper())
 
                     if len(mep) != 1:
+                        mep = proposal_part.curatedproposalpart.meps.filter(last_name__iexact=raw_mep, groupmep__group=group, groupmep__begin__lte=proposal_part.datetime, groupmep__end__gte=proposal_part.datetime)
+
+                    if len(mep) != 1:
                         raw_similar_meps = [x.raw_mep for x in proposal_part.vote_set.filter(raw_mep__icontains=raw_mep)]
                         if raw_mep == u'Weber' and raw_similar_meps == [u'Weber', u'Weber Renate', u'Weber Henri']:
                             mep = proposal_part.curatedproposalpart.meps.filter(ep_id=28229)
