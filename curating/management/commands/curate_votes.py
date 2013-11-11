@@ -267,6 +267,30 @@ class Command(BaseCommand):
                         elif raw_mep == "dos Santos" and raw_similar_meps == [u'dos Santos']:
                             mep = proposal_part.curatedproposalpart.meps.filter(ep_id=21918)
 
+                        elif raw_mep == u'Winkler':
+                            if raw_similar_meps == [u'Winkler', u'Winkler Iuliu']:
+                                mep = proposal_part.curatedproposalpart.meps.filter(ep_id=96764)  # Hermann WINKLER
+
+                            elif raw_similar_meps == [u'Winkler', u'Winkler Hermann']:
+                                mep = proposal_part.curatedproposalpart.meps.filter(ep_id=39725)  # Iuliu WINKLER
+
+                            elif proposal_part.proposal.code_name in ("A7-0241/2013", "A7-0246/2013", "B7-0223/2013", "A7-0366/2012", "A7-0010/2013", "A7-0338/2012", "A7-0378/2012", "A7-0378/2012", "A7-0361/2012"):
+                                # apparently Iuliu WINKLER like to not vote
+                                mep = proposal_part.curatedproposalpart.meps.filter(ep_id=96764)  # Hermann WINKLER
+
+                        elif raw_mep == u'Le Pen':
+                            if raw_similar_meps == [u'Le Pen', u'Le Pen Marine']:
+                                mep = proposal_part.curatedproposalpart.meps.filter(ep_id=1023)  # Jean-Marie LE PEN
+
+                            elif raw_similar_meps == [u'Le Pen', u'Le Pen Jean-Marie']:
+                                mep = proposal_part.curatedproposalpart.meps.filter(ep_id=28210)  # Marine LE PEN
+
+                            elif proposal_part.proposal.code_name in ("B7-0081/2013", "A7-0049/2013"):
+                                mep = proposal_part.curatedproposalpart.meps.filter(ep_id=1023)  # Jean-Marie LE PEN
+
+                            elif proposal_part.proposal.code_name in ("B7-0258/2013", "A7-0197/2013", "A7-0378/2012", "A7-0396/2012"):
+                                mep = proposal_part.curatedproposalpart.meps.filter(ep_id=28210)  # Marine LE PEN
+
 
                     if len(mep) != 1:
                         mep = filter(lambda x: x.groupmep_set.at_date(proposal_part.datetime)[0].group if x.groupmep_set.at_date(proposal_part.datetime) else None == group, mep)
