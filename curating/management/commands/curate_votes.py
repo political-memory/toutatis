@@ -240,6 +240,9 @@ class Command(BaseCommand):
                     if not mep:
                         mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep.upper())
 
+                    if mep =="martin" and proposal_part.vote_set.filter(raw_mep__iexact="Martin David").exists() and proposal_part.curatedproposalpart.meps.filter(last_name__iexact="martin", first_name__iexact="hans-peter").exists():
+                        mep = proposal_part.curatedproposalpart.meps.filter(last_name__iexact="martin", first_name__iexact="hans-peter")
+
                     if len(mep) != 1:
                         mep = filter(lambda x: x.groupmep_set.at_date(proposal_part.datetime)[0].group if x.groupmep_set.at_date(proposal_part.datetime) else None == group, mep)
 
