@@ -240,7 +240,7 @@ class Command(BaseCommand):
                     if not mep:
                         mep = proposal_part.curatedproposalpart.meps.filter(last_name_with_prefix__iexact=raw_mep.upper())
 
-                    if mep.lower() == "martin" and proposal_part.vote_set.filter(raw_mep__iexact="Martin David").exists() and proposal_part.curatedproposalpart.meps.filter(last_name__iexact="martin", first_name__iexact="hans-peter").exists():
+                    if raw_mep.lower() == "martin" and proposal_part.vote_set.filter(raw_mep__iexact="Martin David").exists() and proposal_part.curatedproposalpart.meps.filter(last_name__iexact="martin", first_name__iexact="hans-peter").exists():
                         mep = proposal_part.curatedproposalpart.meps.filter(last_name__iexact="martin", first_name__iexact="hans-peter")
 
                     if len(mep) != 1:
