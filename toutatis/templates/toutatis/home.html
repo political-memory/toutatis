@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>Toutatis - Home</title>
+    </head>
+    <body>
+        <h1 id="Toutatis">Toutatis</h1>
+        <p>Hello, Toutatis is a simple webapp that convert the Votes of the European Parliament data taken from <a href="https://parltrack.euwiki.org">parltrack</a> in the <a href="https://github.com/yohanboniface/django-representatives/blob/master/format.json">"representatives-votes" format</a>.</p>
+
+        <p>If you aren't interested in those data and/or aren't using a lib/application that is implementing the "representatives" format, this website won't have a lot of interest for you.</p>
+
+        <h2>API</h2>
+
+        <p>If you want more fingrain access to the dumps and their meta data, you can access all of the via a <a href="http://django-tastypie.readthedocs.org/en/latest/">tastypie</a> API.</p>
+
+        <p><b>Warning:</b> those data is quite big so expect some slowdown if you try to open them in your browser.</p>
+
+        <p>The API is accessible at this url: <code>http://{{ request.META.SERVER_NAME }}/api/exported_revision/?format=json</code></p>
+
+        <p>Sample usage: <code>curl http://{{ request.META.SERVER_NAME }}/api/exported_revision/?format=json | python -m json.tool</code></p>
+
+        <hr/>
+
+        <p>Toutatis is free software under the aGPLv3+. <a href="">Source code</a></p>
+
+        <p><small><i>Toutatis was a Celtic god worshipped in ancient Gaul and Britain.</i></small></p>
+    </body>
+</html>
