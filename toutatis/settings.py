@@ -37,10 +37,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'parltrack_votes',
-    'parltrack_meps',
+    # 'parltrack_votes',
+    # 'parltrack_meps',
     'representatives',
-    'parltrack_meps_to_representatives',
+    # 'parltrack_meps_to_representatives',
     'representatives_votes',
     'toutatis'
 )
