@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'representatives',
     # 'parltrack_meps_to_representatives',
     'representatives_votes',
+    'import_parltrack',
+    'import_parltrack_representatives',
     'toutatis'
 )
 
