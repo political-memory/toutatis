@@ -1,3 +1,5 @@
-from django.shortcuts import render
+from .models import ExportedRevision
+from django.http import HttpResponse, HttpResponseNotFound
 
-# Create your views here.
+def get_dossier_data(request, data):
+    pass
