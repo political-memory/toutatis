@@ -1,4 +1,3 @@
 *.sqlite3
 *.sqlite
 *.pyc
-import_*
