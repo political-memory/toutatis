@@ -39,10 +39,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # 'parltrack_votes',
     # 'parltrack_meps',
+    'tastypie',
     'representatives',
     # 'parltrack_meps_to_representatives',
     'representatives_votes',
-    'import_parltrack',
+    'import_parltrack_votes',
     'import_parltrack_representatives',
     'export_data',
     'toutatis'
