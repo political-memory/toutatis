@@ -14,11 +14,36 @@
 
         <p>If you want more fingrain access to the dumps and their meta data, you can access all of the via a <a href="http://django-tastypie.readthedocs.org/en/latest/">tastypie</a> API.</p>
 
-        <p><b>Warning:</b> those data is quite big so expect some slowdown if you try to open them in your browser.</p>
+        <p>The API is accessible at this url: <a href="http://{{ request.META.HTTP_HOST }}/api/v1/?format=json"><code>http://{{ request.META.HTTP_HOST }}/api/v1/?format=json</code></a></p>
+        <h3>Sample usage</h3>
+        <dl>
+          <dt>Get dossier list</dt>
+          <dd>
+            <a href="http://{{ request.META.HTTP_HOST }}/api/v1/dossiers/?format=json"><code>http://{{ request.META.HTTP_HOST }}/api/v1/dossiers/?format=json</code></a>
+          </dd>
 
-        <p>The API is accessible at this url: <code>http://{{ request.META.SERVER_NAME }}/api/exported_revision/?format=json</code></p>
-
-        <p>Sample usage: <code>curl http://{{ request.META.SERVER_NAME }}/api/exported_revision/?format=json | python -m json.tool</code></p>
+          <dt>Search dossier</dt>
+          <dd>
+            <a href="http://{{ request.META.HTTP_HOST }}/api/v1/dossiers/?format=json&title__icontains=acta"><code>http://{{ request.META.HTTP_HOST }}/api/v1/dossiers/?format=json&amp;title__icontains=acta</code></a><br>
+            <p>You can use <a href="https://docs.djangoproject.com/en/1.7/ref/models/querysets/#field-lookups">django field lookup</a>, on fields : <strong>title, reference</strong></p>
+          </dd>
+          <dt>Get a dossier</dt>
+          <dd>
+            <a href="http://{{ request.META.HTTP_HOST }}/api/v1/dossiers/171?format=json"><code>http://{{ request.META.HTTP_HOST }}/api/v1/dossiers/171?format=json</code></a>
+          </dd>
+          <dt>Get proposal list</dt>
+          <dd>
+            <p>
+              <a href="http://{{ request.META.HTTP_HOST }}/api/v1/proposals/?format=json"><code>http://{{ request.META.HTTP_HOST }}/api/v1/proposals/?format=json</code></a>
+              <br>
+              You can filter results like <strong>dossiers</strong>, on fields : <strong>title, reference, datetime, kind</strong>
+          </dd>
+          <dd>Get a proposal</dd>
+          <dd>
+            <a href="http://{{ request.META.HTTP_HOST }}/api/v1/proposals/8/?format=json"><code>http://{{ request.META.HTTP_HOST }}/api/v1/proposals/8/?format=json</code></a>
+          </dd>
+        </dl>
+        
 
         <hr/>
 
