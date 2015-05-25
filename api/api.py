@@ -46,7 +46,7 @@ class ProposalDetailResource(ModelResource):
     dossier = fields.ToOneField(DossierResource, 'dossier')
         
     votes = fields.ListField(
-        attribute='vote_api_list',
+        attribute='vote_set',
         use_in='detail',
     )
 
