@@ -44,9 +44,10 @@ class ProposalResource(ModelResource):
 
 class ProposalDetailResource(ModelResource):
     dossier = fields.ToOneField(DossierResource, 'dossier')
-        
+
+    # We need to use a custom field for that bug : https://github.com/django-tastypie/django-tastypie/issues/1301
     votes = fields.ListField(
-        attribute='vote_set',
+        attribute='vote_api_list',
         use_in='detail',
     )
 
