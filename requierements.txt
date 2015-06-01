@@ -1,5 +1,7 @@
 django>=1.7,<1.8
-django-tastypie
+djangorestframework
+django-filter
 slugify
 pytz
 ijson
+-e hg+https://bitbucket.org/wnielson/django-chronograph#egg=django-chronograph
