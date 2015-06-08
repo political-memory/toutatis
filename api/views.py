@@ -66,7 +66,7 @@ class ProposalViewSet(viewsets.ReadOnlyModelViewSet):
         'kind': ['exact'],
     }
     
-    search_fields = ('title', 'reference', 'dossier__name', 'dossier_reference')
+    search_fields = ('title', 'reference', 'dossier__title', 'dossier__reference')
     ordering_fields = ('id', 'reference')
     
     def list(self, request):
