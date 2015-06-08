@@ -20,7 +20,7 @@
 
 from representatives_votes.models import Dossier, Proposal
 from rest_framework import viewsets, filters
-from representatives_votes.serializers import DossierHyperLinkedSerializer, ProposalHyperLinkedSerializer, DossierDetailSerializer, ProposalDetailHyperLinkedSerializer
+from representatives_votes.serializers import DossierListSerializer, ProposalHyperLinkedSerializer, DossierDetailSerializer, ProposalDetailHyperLinkedSerializer
 
 
 class DossierViewSet(viewsets.ReadOnlyModelViewSet):
@@ -41,7 +41,7 @@ class DossierViewSet(viewsets.ReadOnlyModelViewSet):
    
     
     def list(self, request):
-        self.serializer_class = DossierHyperLinkedSerializer
+        self.serializer_class = DossierListSerializer
         return super(DossierViewSet, self).list(request)
 
     def retrieve(self, request, pk=None):
