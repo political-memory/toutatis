@@ -36,7 +36,7 @@ class DossierViewSet(viewsets.ReadOnlyModelViewSet):
         'reference': ['exact', 'icontains']
     }
     
-    search_fields = ('title', 'reference', 'text')
+    search_fields = ('title', 'reference', 'text', 'proposals__title')
     ordering_fields = ('id', 'reference')
    
     
