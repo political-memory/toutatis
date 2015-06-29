@@ -1,5 +1,5 @@
 *.sqlite3
 *.sqlite
 *.pyc
-toutatis/settings.py
+toutatis/config.json
 celerybeat-schedule
