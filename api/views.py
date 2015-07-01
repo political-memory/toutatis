@@ -33,10 +33,11 @@ class DossierViewSet(viewsets.ReadOnlyModelViewSet):
 
     filter_fields = {
         'title': ['exact', 'icontains'],
-        'reference': ['exact', 'icontains']
+        'fingerprint': ['exact'],
+        'reference': ['exact', 'icontains'],
     }
     
-    search_fields = ('title', 'reference', 'text', 'proposals__title')
+    search_fields = ('title', 'fingerprint', 'reference', 'text', 'proposals__title')
     ordering_fields = ('id', 'reference')
    
     
@@ -59,6 +60,7 @@ class ProposalViewSet(viewsets.ReadOnlyModelViewSet):
     
     filter_fields = {
         'dossier': ['exact'],
+        'fingerprint': ['exact'],
         'title': ['exact', 'icontains'],
         'description': ['icontains'],
         'reference': ['exact', 'icontains'],
@@ -66,7 +68,7 @@ class ProposalViewSet(viewsets.ReadOnlyModelViewSet):
         'kind': ['exact'],
     }
     
-    search_fields = ('title', 'reference', 'dossier__title', 'dossier__reference')
+    search_fields = ('title', 'fingerprint', 'reference', 'dossier__title', 'dossier__reference')
     ordering_fields = ('id', 'reference')
     
     def list(self, request):

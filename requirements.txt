@@ -4,4 +4,3 @@ django-filter
 slugify
 pytz
 ijson
--e hg+https://bitbucket.org/wnielson/django-chronograph#egg=django-chronograph

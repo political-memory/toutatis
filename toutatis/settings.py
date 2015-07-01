@@ -57,11 +57,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'parltrack_votes',
-    # 'parltrack_meps',
     'rest_framework',
     'representatives',
-    # 'parltrack_meps_to_representatives',
     'representatives_votes',
     'import_parltrack_votes',
     'export_data',
@@ -125,6 +122,29 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+# Logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/tmp/toutatis-debug.log',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'import_parltrack_votes': {
+            'handlers': ['console'],
+            'level': 'DEBUG'
+        },
+    },
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
