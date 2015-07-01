@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
 from representatives_votes.models import Dossier
-from representatives_votes.task import export_a_dossier
+from representatives_votes.tasks import export_a_dossier
 
 """
 Get dossier from exported revision
