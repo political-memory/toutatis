@@ -47,6 +47,7 @@ ALLOWED_HOSTS = []
 
 COMPOTISTA_SERVER = get_param('compotista_server')
 TOUTATIS_SERVER = get_param('toutatis_server')
+REDIS_DB = get_param('redis_db')
 
 # Application definition
 
@@ -64,6 +65,9 @@ INSTALLED_APPS = (
     'export_data',
     'toutatis'
 )
+
+if DEBUG:
+    INSTALLED_APPS += tuple(get_param('dev_modules'))
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -123,35 +127,58 @@ REST_FRAMEWORK = {
 }
 
 # Logging
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s[%(module)s]: %(message)s'
+        },
+    },
     'handlers': {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/tmp/toutatis-debug.log',
+            'filename': '/tmp/compotista-debug.log',
         },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
+            'formatter': 'simple'
         },
     },
     'loggers': {
-        'import_parltrack_votes': {
+        'compotista': {
             'handlers': ['console'],
             'level': 'DEBUG'
         },
+        'representatives': {
+            'handlers': ['console'],
+            'level': 'DEBUG'
+        },
+        'representatives_votes': {
+            'handlers': ['console'],
+            'level': 'DEBUG'
+        },
+        'import_partrack_votes': {
+            'handlers': ['console'],
+            'level': 'DEBUG'
+        }
     },
 }
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = get_param('language_code', default='en-us')
 
-TIME_ZONE = get_param('time_zone', default='Europe/Brussels')
+TIME_ZONE = 'UTC'
+# get_param('time_zone', default='Europe/Brussels')
 
 USE_I18N = True
 
