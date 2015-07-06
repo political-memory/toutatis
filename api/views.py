@@ -18,10 +18,9 @@
 #
 # Copyright (C) 2015 Arnaud Fabre <af@laquadrature.net>
 
-from representatives_votes.models import Dossier, Proposal
+from representatives_votes.models import Dossier, Proposal, Vote
 from rest_framework import viewsets, filters
-from representatives_votes.serializers import DossierListSerializer, ProposalHyperLinkedSerializer, DossierDetailSerializer, ProposalDetailHyperLinkedSerializer
-
+from representatives_votes.serializers import VoteSerializer, ProposalSerializer, DossierSerializer, DossierDetailSerializer
 
 class DossierViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -29,11 +28,13 @@ class DossierViewSet(viewsets.ReadOnlyModelViewSet):
     """
     
     queryset = Dossier.objects.all()
+    serializer_class = DossierSerializer
+    
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
 
     filter_fields = {
-        'title': ['exact', 'icontains'],
         'fingerprint': ['exact'],
+        'title': ['exact', 'icontains'],
         'reference': ['exact', 'icontains'],
     }
     
@@ -42,7 +43,7 @@ class DossierViewSet(viewsets.ReadOnlyModelViewSet):
    
     
     def list(self, request):
-        self.serializer_class = DossierListSerializer
+        # self.serializer_class = DossierListSerializer
         return super(DossierViewSet, self).list(request)
 
     def retrieve(self, request, pk=None):
@@ -56,11 +57,13 @@ class ProposalViewSet(viewsets.ReadOnlyModelViewSet):
     """
     
     queryset = Proposal.objects.all()
+    serializer_class = ProposalSerializer
+    
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     
     filter_fields = {
-        'dossier': ['exact'],
         'fingerprint': ['exact'],
+        'dossier__fingerprint': ['exact'],
         'title': ['exact', 'icontains'],
         'description': ['icontains'],
         'reference': ['exact', 'icontains'],
@@ -68,13 +71,40 @@ class ProposalViewSet(viewsets.ReadOnlyModelViewSet):
         'kind': ['exact'],
     }
     
-    search_fields = ('title', 'fingerprint', 'reference', 'dossier__title', 'dossier__reference')
+    search_fields = ('title', 'fingerprint', 'reference',
+                     'dossier__fingerprint', 'dossier__title',
+                     'dossier__reference')
     ordering_fields = ('id', 'reference')
     
     def list(self, request):
-        self.serializer_class = ProposalHyperLinkedSerializer
+        # self.serializer_class = ProposalHyperLinkedSerializer
         return super(ProposalViewSet, self).list(request)
 
     def retrieve(self, request, pk=None):
-        self.serializer_class = ProposalDetailHyperLinkedSerializer
+        # self.serializer_class = ProposalDetailHyperLinkedSerializer
         return super(ProposalViewSet, self).retrieve(request, pk)
+
+
+class VoteViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows proposals to be viewed.
+    """
+    
+    queryset = Vote.objects.all()
+    serializer_class = VoteSerializer
+    
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    
+    filter_fields = {
+        'proposal__fingerprint': ['exact'],
+        'position': ['exact'],
+        'representative_name': ['exact', 'icontains'],
+        'representative_remote_id': ['exact']
+    }
+    
+    
+    def list(self, request):
+        return super(VoteViewSet, self).list(request)
+
+    def retrieve(self, request, pk=None):
+        return super(VoteViewSet, self).retrieve(request, pk)

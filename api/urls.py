@@ -25,8 +25,7 @@ from api import views
 router = routers.DefaultRouter()
 router.register(r'dossiers', views.DossierViewSet)
 router.register(r'proposals', views.ProposalViewSet)
-
-# Wire up our API using automatic URL routing.
+router.register(r'votes', views.VoteViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
