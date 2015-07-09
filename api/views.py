@@ -20,7 +20,9 @@
 
 from representatives_votes.models import Dossier, Proposal, Vote
 from rest_framework import viewsets, filters
-from representatives_votes.serializers import VoteSerializer, ProposalSerializer, DossierSerializer, DossierDetailSerializer
+from representatives_votes.serializers import (VoteSerializer,
+                                               ProposalSerializer, ProposalDetailSerializer,
+                                               DossierSerializer, DossierDetailSerializer)
 
 class DossierViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -43,7 +45,6 @@ class DossierViewSet(viewsets.ReadOnlyModelViewSet):
    
     
     def list(self, request):
-        # self.serializer_class = DossierListSerializer
         return super(DossierViewSet, self).list(request)
 
     def retrieve(self, request, pk=None):
@@ -77,11 +78,10 @@ class ProposalViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = ('id', 'reference')
     
     def list(self, request):
-        # self.serializer_class = ProposalHyperLinkedSerializer
         return super(ProposalViewSet, self).list(request)
 
     def retrieve(self, request, pk=None):
-        # self.serializer_class = ProposalDetailHyperLinkedSerializer
+        self.serializer_class = ProposalDetailSerializer
         return super(ProposalViewSet, self).retrieve(request, pk)
 
 
@@ -99,10 +99,9 @@ class VoteViewSet(viewsets.ReadOnlyModelViewSet):
         'proposal__fingerprint': ['exact'],
         'position': ['exact'],
         'representative_name': ['exact', 'icontains'],
-        'representative_remote_id': ['exact']
+        'representative': ['exact']
     }
-    
-    
+   
     def list(self, request):
         return super(VoteViewSet, self).list(request)
 
