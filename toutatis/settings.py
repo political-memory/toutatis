@@ -114,7 +114,9 @@ DATABASES = {
     }
 }
 
-if get_param('database_server') == 'mysql':
+if get_param('local'):
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+elif get_param('database_server') == 'mysql':
     DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
 elif get_param('database_server') == 'postgresql':
     DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
