@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/political-memory/toutatis.svg?branch=master)](https://travis-ci.org/political-memory/toutatis)
 ```
 cd /tmp
 virtualenv toutatis_example
