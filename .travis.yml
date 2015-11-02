@@ -1,11 +1,20 @@
 sudo: false
 language: python
 python:
-  - "2.7"
+- '2.7'
 install:
-  - pip install django
-  - pip install -U pip
-  - pip install -r requirements.txt
-  - cp toutatis/config.json.sample toutatis/config.json
+- pip install django
+- pip install -U pip
+- pip install -e .
 script:
-  - ./manage.py migrate
+- "./manage.py migrate"
+deploy:
+  provider: openshift
+  user: memopol@laquadrature.net
+  password:
+    secure: atDq1NEkHXOsV2gZKeXAIn+PvbL3jduz3WK1qIs7BSHyNbrZMT1OUmvoXXrM8+i5eqW3TNsvp23w0RuD06wxSjHkPl+ZCEXP1Ao98p85UZNCgixxiwZHEhL6Amz5vqueGhv+47VOIKNgNFb9NAtRrWyIdA9xDUiK2oWkMSDmHas=
+  app: toutatis
+  domain: memopol
+  on:
+    repo: political-memory/toutatis
+    branch: master

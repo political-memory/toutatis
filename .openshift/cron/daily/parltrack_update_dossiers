@@ -1,0 +1,3 @@
+#!/bin/bash
+set -x
+CLEAN=1 nohup bin/parltrack_update dossiers > $OPENSHIFT_LOG_DIR/parltrack_update_dossiers.log 2>&1 &
