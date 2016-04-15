@@ -6,8 +6,9 @@ source toutatis_example/bin/activate
 
 git clone https://github.com/political-memory/toutatis.git
 cd toutatis
-cp toutatis/config.json.sample toutatis/config.json
-pip install -r requirements.txt
 ./manage.py migrate
 ./manage.py runserver
+bin/parltrack_update representatives
+bin/parltrack_update dossiers
+bin/parltrack_update votes
 ```
