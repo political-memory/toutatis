@@ -1,0 +1,74 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+    cat <<EOF
+Usage:
+
+    toutatis parltrack {representatives,dossiers,votes,all}
+    toutatis francedata {representatives,dossiers,scrutins,votes,all}
+    toutatis all
+EOF
+    exit 0
+fi
+
+set -eux
+
+if [ -n "${OPENSHIFT_HOMEDIR-}" ]; then
+    source ${OPENSHIFT_HOMEDIR}app-root/runtime/dependencies/python/virtenv/bin/activate
+fi
+
+function import() {
+    if [ -n "${OPENSHIFT_DATA_DIR-}" ]; then
+        cd $OPENSHIFT_DATA_DIR
+    fi
+
+    local url=""
+
+    case "$2" in
+        parltrack_*)
+            url="http://parltrack.euwiki.org/dumps/$1"
+            extract="unxz -c"
+            ;;
+        francedata_*)
+            url="https://francedata-njoyard.rhcloud.com/$1"
+            extract="gunzip -c"
+            ;;
+    esac
+
+    [ -n "${CLEAN-}" ] && rm -rf $1
+    [ -f "$1" ] || wget $url || exit 1
+
+    if [ -n "${OPENSHIFT_REPO_DIR-}" ]; then
+        cd $OPENSHIFT_REPO_DIR
+    fi
+
+    export DJANGO_SETTINGS_MODULE=toutatis.settings
+    $extract ${OPENSHIFT_DATA_DIR-}$1 | $2
+    [ -n "${CLEAN-}" ] && rm -rf $1
+}
+
+if [ "$1" = "all" ]; then
+    $0 parltrack representatives
+    $0 parltrack dossiers
+    $0 parltrack votes
+    $0 francedata representatives
+    $0 francedata dossiers
+    $0 francedata scrutins
+    $0 francedata votes
+else
+    case "$1" in
+        parltrack)
+            if [ "$2" = "representatives" ]; then
+                import ep_meps_current.json.xz parltrack_import_representatives
+            else
+                import ep_${2}.json.xz parltrack_import_$2
+            fi
+            ;;
+        francedata)
+            if [ "$2" = "representatives" ]; then
+                import parlementaires.json.gz francedata_import_representatives
+            else
+                import ${2}.json.gz francedata_import_$2
+            fi
+            ;;
+    esac
+fi
