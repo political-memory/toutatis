@@ -82,6 +82,7 @@ INSTALLED_APPS = (
     'representatives_votes',
     'representatives_votes.contrib.parltrack',
     'representatives_votes.contrib.francedata',
+    'representatives_votes.contrib.api',
 )
 
 if DEBUG:
