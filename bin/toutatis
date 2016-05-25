@@ -10,11 +10,13 @@ EOF
     exit 0
 fi
 
-set -eux
+set -ex
 
 if [ -n "${OPENSHIFT_HOMEDIR-}" ]; then
     source ${OPENSHIFT_HOMEDIR}app-root/runtime/dependencies/python/virtenv/bin/activate
 fi
+
+set -u
 
 function import() {
     if [ -n "${OPENSHIFT_DATA_DIR-}" ]; then
