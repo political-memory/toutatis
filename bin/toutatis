@@ -36,7 +36,10 @@ function import() {
             ;;
     esac
 
-    [ -n "${CLEAN-}" ] && rm -rf $1
+    if [ -n "${CLEAN-}" ]; then
+        rm -rf $1
+    fi
+
     [ -f "$1" ] || wget $url || exit 1
 
     if [ -n "${OPENSHIFT_REPO_DIR-}" ]; then
@@ -45,7 +48,9 @@ function import() {
 
     export DJANGO_SETTINGS_MODULE=toutatis.settings
     $extract ${OPENSHIFT_DATA_DIR-}$1 | $2
-    [ -n "${CLEAN-}" ] && rm -rf $1
+    if [ -n "${CLEAN-}" ]; then
+        rm -rf $1
+    fi
 }
 
 if [ "$1" = "all" ]; then
