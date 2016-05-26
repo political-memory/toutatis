@@ -1,0 +1,3 @@
+#!/bin/bash
+set -x
+CLEAN=1 nohup $OPENSHIFT_REPO_DIR/bin/toutatis parltrack representatives > $OPENSHIFT_LOG_DIR/parltrack_update_representatives.log 2>&1 &
